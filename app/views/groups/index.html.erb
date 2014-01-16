@@ -1,6 +1,6 @@
 <div class="span12">
   <div class="group">
-    <%= link_to("New group", new_group_path, :class => "btn btb-mini btn-primary pull-right") %>
+    <%= link_to("New group", new_group_path, :class => "btn btn-mini btn-primary pull-right") %>
   </div>
   <table class="table">
     <thead>
@@ -10,18 +10,22 @@
         <td> Description </td>
       </tr>
     </thead>
+    
     <tbody>
+      
       <% @groups.each do |group| %>
+      
       <tr>
         <td> # </td>
-        <td> <%= link_to(group.title, group_path(group) %> </td>
+        <td> <%= link_to(group.title, group_path(group)) %> </td>
         <td> <%= group.description %> </td>
-        <td> <%= link_to("Edit", edit_group_path(group), :class => "btn btn-mini") %> 
-          <%= link_to("Delete", group_path(group), :class => "btn btn-mini", :method => :delete, :confirm => "Are you kidding?"%>
-
-        </td>
+        <td> <%= link_to("Edit", edit_group_path(group), :class => "btn btn-mini") %> </td>
+        <td> <%= link_to("Delete", group_path(group), :class => "btn btn-mini", :method => :delete, :confirm => "Are you kidding?") %> </td>
+      
       </tr>
+
       <% end %>
+    
     </tbody>
 
   </table>
