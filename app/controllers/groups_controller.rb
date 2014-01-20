@@ -21,6 +21,7 @@ class GroupsController < ApplicationController
       redirect_to groups_path
     else
       render :new
+    end
   end
 
   def edit
