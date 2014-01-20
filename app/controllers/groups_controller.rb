@@ -1,4 +1,6 @@
 class GroupsController < ApplicationController
+
+  before_action :login_required, :only => [:new, :create, :edit, :update, :destroy]
   
   def index
     @groups = Group.all
@@ -14,17 +16,19 @@ class GroupsController < ApplicationController
   end
 
   def create
-    @group = Group.new(group_params)
-    @group.save
+    @group = current_user.groups.build(group_params)
+    if @group.save
       redirect_to groups_path
+    else
+      render :new
   end
 
   def edit
-    @group = Group.find(params[:id])
+    @group = current_user.groups.find(params[:id])
   end
 
   def update
-    @group = Group.find(params[:id])
+    @group = current_user.groups.find(params[:id])
 
     if @group.update(group_params)
       redirect_to group_path(@group)
@@ -34,7 +38,7 @@ class GroupsController < ApplicationController
   end
 
   def destroy
-    @group = Group.find(params[:id])
+    @group = current_user.groups.find(params[:id])
     @group.destroy
 
     redirect_to groups_path
@@ -43,8 +47,7 @@ class GroupsController < ApplicationController
   private
 
   def group_params
-    params.reqiure(:group).permit(:title, :description)
+    params.require(:group).permit(:title, :description)
   end
-
 
 end

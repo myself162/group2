@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  before_action :login_required, :only => [:new, :create, :edit, :update, :destroy]
 
   before_action :find_group
 
@@ -7,7 +8,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = @group.posts.new(post.params)
+    @post = @group.posts.new(post_params)
 
     if @post.save
       redirect_to group_path(@group)
